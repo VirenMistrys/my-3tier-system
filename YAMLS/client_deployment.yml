@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: my-app
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: dockerimage
+        image: virenmistrys/vm-react-client
+        ports:
+        - containerPort: 3000
+      restartPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata: 
+  name: app-service
+spec:
+  ports:
+  - name: "3000"
+    port: 31002
+    nodePort: 31002
+    targetPort: 3000
+    protocol: TCP
+  selector:
+    app: myapp
+  type: NodePort
+        

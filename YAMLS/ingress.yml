@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    ingress.appscode.com/cors-allow-headers: "Keep-Alive,User-Agent"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /testAPI
+        backend:
+          serviceName: api
+          servicePort: 9000
+      - path: /testDB
+        backend:
+          serviceName: api
+          servicePort: 9000
+          
